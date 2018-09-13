@@ -1,0 +1,23 @@
+{
+  "name": "trivia-game",
+  "version": "1.0.0",
+  "description": "Trivia game with form to insert questions",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/tomasantunes/trivia-game",
+  "keywords": [
+    "Trivia",
+    "Quiz"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^2.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "jsonfile": "^5.0.0"
+  }
+}
