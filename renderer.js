@@ -19,6 +19,7 @@ $(document).ready(function(){
   $("#remaining-time").hide();
   $("#start").on('click', trivia.startGame);
   $("#insert-question-btn").on('click', trivia.insertQuestion);
+  $("#clear-btn").on('click', trivia.clearAll);
   $(document).on('click' , '.option', trivia.guessChecker);
   
 })
@@ -179,27 +180,38 @@ var trivia = {
   },
   insertQuestion: function() {
   	var question = $("#question-input").val();
-  	var options = $("#answers-input").val().split(",").map(function(item) {
-	  return item.trim();
-	});
-	var solution = $("#solution-input").val();
+  	var options = $("#options-input").val().split(",").map(function(item) {
+  	  return item.trim();
+  	});
+  	var answer = $("#answer-input").val();
 
-	var c = Object.keys(trivia.questions).length;
-	console.log(data);
+  	var c = Object.keys(trivia.questions).length;
 
-	trivia.questions["q" + c] = question;
-	trivia.options["q" + c] = options;
-	trivia.answers["q" + c] = solution;
+  	trivia.questions["q" + c] = question;
+  	trivia.options["q" + c] = options;
+  	trivia.answers["q" + c] = answer;
 
-	data.questions = trivia.questions;
-	data.options = trivia.options;
-	data.answers = trivia.answers;
-	jsonfile.writeFileSync('data.json', data);
+  	data.questions = trivia.questions;
+  	data.options = trivia.options;
+  	data.answers = trivia.answers;
+  	jsonfile.writeFileSync('data.json', data);
 
-	alert("New question has been inserted.");
-	$("#question-input").val("");
-	$("#answers-input").val("");
-	$("#solution-input").val("");
+  	alert("New question has been inserted.");
+  	$("#question-input").val("");
+  	$("#options-input").val("");
+  	$("#answer-input").val("");
+  },
+  clearAll: function() {
+    var c = confirm("Are you sure you wish to delete all questions?");
+    if (c == true) {
+        data = {questions: {}, options: {}, answers: {}};
+        trivia.questions = data.questions;
+        trivia.options = data.options;
+        trivia.answers = data.answers;
+        $('#question').text("");
+        jsonfile.writeFileSync('data.json', data);
+        alert("All questions have been deleted.");
+    } 
   }
 
 }
